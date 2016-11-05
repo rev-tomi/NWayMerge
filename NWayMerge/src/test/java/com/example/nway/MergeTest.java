@@ -53,4 +53,19 @@ public class MergeTest {
 		List<Integer> collected = merged.collect(Collectors.toList());
 		assertEquals(inputList, collected);
 	}
+
+	@Test
+	public void testMergeTwoStreams() {
+		// GIVEN
+		Merger merger = new Merger();
+		List<Integer> inputList1 = Arrays.asList(1, 3, 5);
+		List<Integer> inputList2 = Arrays.asList(2, 4, 6);
+		
+		// WHEN
+		Stream<Integer> merged = merger.merge(inputList1.stream(), inputList2.stream());
+		
+		// THEN
+		List<Integer> collected = merged.collect(Collectors.toList());
+		assertEquals(Arrays.asList(1, 2, 3, 4, 5, 6), collected);
+	}
 }
