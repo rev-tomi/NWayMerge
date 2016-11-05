@@ -56,12 +56,12 @@ public class Merger {
 			step();
 		}
 		
-		public boolean step() {
+		public void step() {
 			if (tail.hasNext()) {
 				head = tail.next();
-				return true;
+			} else {
+				head = null;
 			}
-			return false;
 		}
 		
 		public boolean isEmpty() {
@@ -108,7 +108,8 @@ public class Merger {
 		public T next() {
 			MergeInputHolder<T> holder = queueOfStreams.poll();
 			T result = holder.getHead();
-			if (holder.step()) {
+			holder.step();
+			if (!holder.isEmpty()) {
 				queueOfStreams.add(holder);
 			}
 			return result;
