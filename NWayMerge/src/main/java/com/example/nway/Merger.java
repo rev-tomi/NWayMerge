@@ -22,8 +22,7 @@ public class Merger {
 		final PriorityQueue<MergeInputHolder<T>> heap = new PriorityQueue<>(inputs.length);
 		initializeHeap(heap, inputs);
 		final Iterator<T> iterator = new HeapMergeIterator<>(heap);
-		Iterable<T> iterable = () -> iterator;
-		return StreamSupport.stream(iterable.spliterator(), false);
+		return wrapIteratorToStream(iterator);
 	}
 
 	private <T extends Comparable<T>> void initializeHeap(final PriorityQueue<MergeInputHolder<T>> heap, Stream<T>... inputs) {
@@ -33,6 +32,11 @@ public class Merger {
 				heap.add(holder);
 			}
 		}
+	}
+
+	private <T extends Comparable<T>> Stream<T> wrapIteratorToStream(final Iterator<T> iterator) {
+		Iterable<T> iterable = () -> iterator;
+		return StreamSupport.stream(iterable.spliterator(), false);
 	}
 	
 	/**
