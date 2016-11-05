@@ -1,0 +1,3 @@
+This project is a coding practice with n-way merge and TDD.
+It uses java 8 Streams so it can lazily and elegantly process data from wherever.
+
