@@ -13,7 +13,20 @@ import org.junit.Test;
 public class MergeTest {
 
 	@Test
-	public void testMergeEmpty() {
+	public void testMergeNoStream() {
+		// GIVEN
+		Merger merger = new Merger();
+		
+		// WHEN
+		Stream<Integer> merged = merger.merge();
+		
+		// THEN
+		List<Integer> collected = merged.collect(Collectors.toList());
+		assertEquals(Collections.<Integer>emptyList(), collected);
+	}
+
+	@Test
+	public void testMergeEmptyStream() {
 		// GIVEN
 		Merger merger = new Merger();
 		Stream<Integer> input = Collections.<Integer>emptyList().stream();
